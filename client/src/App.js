@@ -1,12 +1,22 @@
-import React from 'react';
-import './App.css';
+import React, {useEffect} from 'react';
+import { BrowserRouter as Router, Route, Switch, useHistory, Link } from 'react-router-dom';
+
+import Header from './Components/Header';
+import Courses from './Components/Courses';
 
 function App() {
-  return (
-    <div className="App">
+  useEffect(() => {
+		fetch('http://localhost:5000/api/courses')
+	}, []);
+	return (
+		<Router>
+      <Header />
+      <Switch>
+        <Route exact path='/' component={Courses} />
+      </Switch>
       
-    </div>
-  );
+		</Router>
+	);
 }
 
 export default App;
