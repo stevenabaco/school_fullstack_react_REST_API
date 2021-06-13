@@ -4,22 +4,16 @@
 const express = require('express');
 const morgan = require('morgan');
 const { sequelize } = require('./models');
+const cors = require('cors');
 
 // Import dependencies
 const routes = require('./routes');
-
 
 // variable to enable global error logging
 const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'true';
 
 // create the Express app
 const app = express();
-
-// instantiate express to parse request body
-app.use(express.json());
-
-// setup morgan which gives us http request logging
-app.use(morgan('dev'));
 
 // Test database connection
 (async () => {
@@ -30,6 +24,15 @@ app.use(morgan('dev'));
     console.log('Unable to connect to the database: ', error);
   }
 })();
+
+// Enable CORS for all origins **IMPORTANT**
+app.use(cors());
+
+// instantiate express to parse request body
+app.use(express.json());
+
+// setup morgan which gives us http request logging
+app.use(morgan('dev'));
 
 // setup a friendly greeting for the root route
 app.get('/', (req, res) => {
