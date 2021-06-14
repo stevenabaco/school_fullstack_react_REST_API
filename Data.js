@@ -38,7 +38,7 @@ export default class Data {
 			username,
 			password,
 		});
-
+		// Check status
 		if (res.status === 200) {
 			// Convert data into JSON and return
 			return res.json().then(data => data);
@@ -51,9 +51,11 @@ export default class Data {
 
 	async createUser(user) {
 		const res = await this.api('/users', 'POST', user);
+		// Check status
 		if (res.status === 201) {
 			return ['User successfully created'];
 		} else if (res.status === 400) {
+			// Convert respons into JSON and return
 			return res.jason().then(data => {
 				return data.errors;
 			});
