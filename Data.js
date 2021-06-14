@@ -37,8 +37,8 @@ export default class Data {
 		const res = await this.api(`/users`, `GET`, null, true, {
 			username,
 			password,
-    });
-    
+		});
+
 		if (res.status === 200) {
 			// Convert data into JSON and return
 			return res.json().then(data => data);
@@ -47,18 +47,18 @@ export default class Data {
 		} else {
 			throw new Error();
 		}
-  }
-  
-  async createUser(user) {
-    const res = await this.api('/users', 'POST', user);
-    if (res.status === 201) {
-      return ['User successfully created'];
-    } else if (res.status === 400) {
-      return res.jason().then(data => {
-        return data.errors;
-      });
-    } else {
-      throw new Error();
-    }
-  }
+	}
+
+	async createUser(user) {
+		const res = await this.api('/users', 'POST', user);
+		if (res.status === 201) {
+			return ['User successfully created'];
+		} else if (res.status === 400) {
+			return res.jason().then(data => {
+				return data.errors;
+			});
+		} else {
+			throw new Error();
+		}
+	}
 }
