@@ -1,8 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+// Import Modules
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-const Courses = () => {
+// Import Dependencies
+import DataHandler from '../DataHandler';
+import Context from '..Context';
+import CourseDetail from './CourseDetail';
+
+function Courses() {
+	// Instantiate Context
+	const context = useContext(Context.Context)
 	const [courses, setCourses] = useState([]);
 	let history = useHistory();
 
