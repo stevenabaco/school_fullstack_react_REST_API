@@ -4,29 +4,28 @@ import { Link } from 'react-router-dom';
 
 // Import Dependencies
 import DataHandler from '../DataHandler';
-import Context from '..Context';
+import Context from '../Context';
 import CourseDetail from './CourseDetail';
 
 function Courses() {
-	// Instantiate Context
+	// Set Context
 	const context = useContext(Context.Context)
+	// Set state for Courses
 	const [courses, setCourses] = useState([]);
-	let history = useHistory();
+	
+	const dataHandler = new DataHandler();
 
+	// Pull courses from API and set state with Courses
 	useEffect(() => {
-		fetch('http://localhost:5000/api/courses')
-			.then(res => {
-				if (res.status === 200) {
-					return res.json().then(res => setCourses(res));
-				} else if (res.status === 500) {
-					history.push('/error');
-				}
-			})
-			.catch(err => {
-				console.log(err);
-				history.push('/error');
-			});
-	}, [history]);
+		try {
+			dataHandler.getCourses()
+				.then(courses => {
+					setCourses(courses)
+				});
+		} catch (err) {
+			console.log('Error fetching and Parsing', err)
+		} 
+	}, [dataHandler]);
 	console.log(courses);
 	return (
 		<main>
