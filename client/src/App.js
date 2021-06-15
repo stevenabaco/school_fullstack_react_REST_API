@@ -8,17 +8,15 @@ import CourseDetail from './Components/CourseDetail';
 
 import withContext from './Context';
 
+const HeaderWithContext = withContext(Header);
+
 function App() {
 	return (
 		<Router>
 			<div>
-				<Header />
+				<HeaderWithContext />
 				<Switch>
 					<Route exact path='/' component={Courses} />
-					<PrivateRoute path='/courses/create'>
-						<CreateCourse></CreateCourse>
-					</PrivateRoute>
-					<Route path='/courses/:id' component={CourseDetail} />
 				</Switch>
 			</div>
 		</Router>
