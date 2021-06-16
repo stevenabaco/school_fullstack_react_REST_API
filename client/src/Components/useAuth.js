@@ -1,5 +1,6 @@
 import React, { useState, useContext, createContext } from 'react';
 import Cookies from 'js-cookie';
+
 const authContext = createContext();
 
 // Context Provider for Auth to all components
