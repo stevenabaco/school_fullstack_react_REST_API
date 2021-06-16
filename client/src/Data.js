@@ -1,6 +1,6 @@
 import config from './config';
 
-export default class DataHandler {
+export default class Data {
 	// Handle the API request and responses
 	// Requires a Path with optional 'method', 'id', 'body', 'requiresAuth,
 	// and 'Credentials' parameters depending on API requests and responses.
@@ -14,13 +14,14 @@ export default class DataHandler {
 	) {
 		let url;
 		// Dynamically create full path and params
-		if (id) {
+		if (id > 0) {
 			// Check to see if there's an id param
 			// If 'id' exists and it to path to render detail page
-			url = `$(config.apiBaseUrl)${path}/${id}`;
+			url = `${config.apiBaseUrl}${path}/${id}`;
 		} else {
 			url = config.apiBaseUrl + path;
 		}
+
 		const options = {
 			method,
 			headers: {
@@ -48,12 +49,25 @@ export default class DataHandler {
 	// PARAMS => None
 
 	async getCourses() {
-		const response = await this.api('/courses');
-		if (response.status === 200) {
-			return response
-				.json() // Convert data into JSON and return
-				.then(data => data);
-		} else if (response.status === 401) {
+		const res = await this.api('/courses');
+		if (res.status === 200) {
+			return res.json().then(data => data);
+		} else if (res.status === 401) {
+			return null;
+		} else {
+			throw new Error();
+		}
+	}
+
+	// GET => ONE Course
+	// AUTH => No
+	// PARAMS => 'id'
+	async getCourse(id) {
+		const res = await this.api('/courses', 'GET', id);
+		if (res.status === 200) {
+			// Convert data to JSON and return
+			return res.json().then(data => data);
+		} else if (res.status === 401) {
 			return null;
 		} else {
 			throw new Error();
@@ -78,21 +92,6 @@ export default class DataHandler {
 					'Not Authorized. Please provide a valid email and password.';
 				return data.message;
 			});
-		} else {
-			throw new Error();
-		}
-	}
-
-	// GET => ONE Course
-	// AUTH => No
-	// PARAMS => 'id'
-	async getCourse(id) {
-		const res = await this.api('/courses', 'GET', id);
-		if (res.status === 200) {
-			// Convert data to JSON and return
-			return res.json().then(data => data);
-		} else if (res.status === 401) {
-			return null;
 		} else {
 			throw new Error();
 		}

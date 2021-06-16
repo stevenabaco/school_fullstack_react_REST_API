@@ -3,30 +3,33 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 // Import Dependencies
-import DataHandler from '../DataHandler';
+import Data from '../Data';
 import Context from '../Context';
 import CourseDetail from './CourseDetail';
 
 function Courses() {
 	// Set Context
-	const context = useContext(Context.Context)
-	// Set state for Courses
-	const [courses, setCourses] = useState([]);
-	
-	const dataHandler = new DataHandler();
+	const context = useContext(Context.Context);
+	// Set state for list of Courses
+	const [coursesList, setCoursesList] = useState([]);
+
+	const dataHandler = new Data();
 
 	// Pull courses from API and set state with Courses
 	useEffect(() => {
-		try {
-			dataHandler.getCourses()
-				.then(courses => {
-					setCourses(courses)
-				});
-		} catch (err) {
-			console.log('Error fetching and Parsing', err)
-		} 
-	}, [dataHandler]);
-	console.log(courses);
+		let mounted = true;
+		dataHandler
+			.getCourses()
+			.then(courses => {
+				if (mounted) {
+					setCoursesList(courses);
+				}
+			})
+			.catch(err => console.log('Error fetching and parsing data', err));
+		return () => (mounted = false);
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+	let courses = coursesList.map(course => <CourseDetail title={course.title} description={course.description} id={course.id} key={course.id} />);
 	return (
 		<main>
 			<div className='wrap main--grid'>
@@ -61,6 +64,6 @@ function Courses() {
 			</div>
 		</main>
 	);
-};
+}
 
 export default Courses;

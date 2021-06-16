@@ -1,33 +1,31 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React, { Component } from 'react';
 import Cookies from 'js-cookie';
-import DataHandler from './DataHandler';
+import Data from './Data';
 
+//instantiat Context to all state to be passed to other components
 const Context = React.createContext();
 
 export class Provider extends Component {
 	state = {
-		// Authenticate user and password with Cookies
+		// Authenticate user with Cookies
 		// If no Cookies to set State return null
 		authenticatedUser: Cookies.getJSON('authenticatedUser') || null,
-		authenticatedPassword: Cookies.getJSON('authenticatedPassword') || null,
 	};
 
 	constructor() {
 		super();
-		this.dataHandler = new DataHandler();
+		this.data = new Data();
 	}
 
 	render() {
-		const { authenticatedUser, authenticatedPassword } = this.state;
+		const { authenticatedUser } = this.state;
 		const value = {
 			authenticatedUser,
-			authenticatedPassword,
-			dataHandler: this.dataHandler,
+			data: this.data,
 			actions: {
 				signIn: this.signIn,
 				signOut: this.signOut,
-				validation: this.validation,
 			},
 		};
 
@@ -38,20 +36,17 @@ export class Provider extends Component {
 
 	// ACTION => Sign In 'user' and assign Cookie
 	// PARAMS => 'username' , 'password'
-	signIn = async (username, password) => {
-		const user = await this.data.getUser(username, password);
-		const hashedPass = btoa(password);
+	signIn = async (emailAddress, password) => {
+		const user = await this.data.getUser(emailAddress, password);
 		if (user !== null) {
 			this.setState(() => {
+				user.emailAddress = emailAddress;
+				user.password = password;
 				return {
 					authenticatedUser: user,
-					authenticatedPassword: hashedPass,
 				};
 			});
 			Cookies.set('authenticatedUser', JSON.stringify(user), { expires: 1 });
-			Cookies.set('authenticatedPassword', JSON.stringify(hashedPass), {
-				expires: 1,
-			});
 		}
 		return user;
 	};
@@ -59,26 +54,20 @@ export class Provider extends Component {
 	// ACTION => Sign Out 'user' and remove Cookie
 	// PARAMS => None
 	signOut = () => {
-		this.setState({ authenticatedUser: null, authenticatedPassword: null });
-		Cookies.remove('authenticatedPassword');
+		this.setState({ authenticatedUser: null });
 		Cookies.remove(`authenticatedUser`);
-	};
-
-	// ACTION => Return any errors
-	// PARAMS => None
-	validation = errors => {
-		if (errors) {
-			return (
-				<div className='validation--errors'>
-					<h3>Validation Errors</h3>
-					<ul>{errors}</ul>
-				</div>
-			);
-		}
 	};
 }
 
 export const Consumer = Context.Consumer;
 
-// Higher order component to wrap the provided component with access to
-export default {Context};
+// Higher order component to wrap the provided access to context
+export default function withContext(Component) {
+	return function ContextComponent(props) {
+		return (
+			<Context.Consumer>
+				{context => <Component {...props} context={context}/>}
+			</Context.Consumer>
+		)
+	}
+};
