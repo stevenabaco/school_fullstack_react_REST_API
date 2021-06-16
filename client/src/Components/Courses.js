@@ -1,35 +1,28 @@
 // Import Modules
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
-// Import Dependencies
-import Data from '../Data';
-import Context from '../Context';
-import CourseDetail from './CourseDetail';
-
-function Courses() {
-	// Set Context
-	const context = useContext(Context.Context);
+const Courses = ()=> {
 	// Set state for list of Courses
-	const [coursesList, setCoursesList] = useState([]);
-
-	const dataHandler = new Data();
-
+	const [courses, setCourses] = useState([]);
+	let history = useHistory();
+	
 	// Pull courses from API and set state with Courses
 	useEffect(() => {
-		let mounted = true;
-		dataHandler
-			.getCourses()
-			.then(courses => {
-				if (mounted) {
-					setCoursesList(courses);
-				}
+		fetch('http://localhost:5000/api/courses')
+			.then(res => {
+				if (res.status === 200) {
+					return res.json().then(res => setCourses(res));
+				} else if (res.status === 500) {
+					history.push('/error');
+			}
+			}).catch(err => {
+				console.log(err);
+				history.push('/error');
 			})
-			.catch(err => console.log('Error fetching and parsing data', err));
-		return () => (mounted = false);
-	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [history]);
 
-	let courses = coursesList.map(course => <CourseDetail title={course.title} description={course.description} id={course.id} key={course.id} />);
 	return (
 		<main>
 			<div className='wrap main--grid'>
