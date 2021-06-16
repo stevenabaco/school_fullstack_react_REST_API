@@ -3,11 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 
-const Courses = ()=> {
+const Courses = () => {
 	// Set state for list of Courses
 	const [courses, setCourses] = useState([]);
 	let history = useHistory();
-	
+
 	// Pull courses from API and set state with Courses
 	useEffect(() => {
 		fetch('http://localhost:5000/api/courses')
@@ -16,27 +16,30 @@ const Courses = ()=> {
 					return res.json().then(res => setCourses(res));
 				} else if (res.status === 500) {
 					history.push('/error');
-			}
-			}).catch(err => {
+				}
+			})
+			.catch(err => {
 				console.log(err);
 				history.push('/error');
-			})
+			});
 	}, [history]);
 
 	return (
 		<main>
 			<div className='wrap main--grid'>
-				{courses.map(course => {
-					return (
-						<Link
-							key={course.id}
-							className='course--module course--link'
-							to={`courses/${course.id}`}>
-							<h2 className='course--label'>Course</h2>
-							<h3 className='course--title'>{course.title}</h3>
-						</Link>
-					);
-				})}
+				{courses.length > 0
+					? courses.map(course => {
+							return (
+								<Link
+									key={course.id}
+									className='course--module course--link'
+									to={`courses/${course.id}`}>
+									<h2 className='course--label'>Course</h2>
+									<h3 className='course--title'>{course.title}</h3>
+								</Link>
+							);
+					  })
+					: null}
 
 				<Link
 					className='course--module course--add--module'
@@ -57,6 +60,6 @@ const Courses = ()=> {
 			</div>
 		</main>
 	);
-}
+};
 
 export default Courses;
