@@ -1,20 +1,59 @@
-import React, {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+// Import Modules
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory, useParams } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
+import { useAuth } from './useAuth';
 
-const CourseDetail = () => {
-  return (
+const CourseDetail = props => {
+	// Set State using object
+	const [course, setCourse] = useState({});
+	const [user, setUser] = useState({});
+	// Initiate variables
+	let { id } = useParams();
+	let auth = useAuth();
+	let history = useHistory();
+	// console.log(auth.user);
+
+	// Fetch Course Detail by 'id' using params
+	useEffect(() => {
+		fetch(`http://localhost:5000/api/courses/${id}`)
+			.then(res => {
+				//Check status for any error
+				if (res.status === 200) {
+					// Convert response to JSON and set new state
+					res.json().then(res => {
+						setCourse(res); 
+						setUser(res.User); 
+					});
+				} else if (res.status === 404) {
+					history.push('/error404');
+				} else if (res.status === 500) {
+					history.push('./Error500');
+				}
+			})
+			.catch(err => history.push('./Error500.js'));
+	}, [id, history]);
+
+	const deleteHandler = () => {
+		fetch(`http://localhost:5000/api/${id}`, {
+			method: 'DELETE',
+			headers: {'Authorization': `Basic ${auth.credentials}`}
+		})
+	}
+
+	return (
 		<main>
 			<div className='actions--bar'>
 				<div className='wrap'>
 					<Link className='button' to='update-course.html'>
 						Update Course
 					</Link>
-					<a className='button' href='#'>
+					<Link className='button' to='deleteCourse'>
 						Delete Course
-					</a>
-					<a className='button button-secondary' href='index.html'>
+					</Link>
+					<Link className='button button-secondary' to='/'>
 						Return to List
-					</a>
+					</Link>
 				</div>
 			</div>
 
@@ -99,6 +138,6 @@ const CourseDetail = () => {
 			</div>
 		</main>
 	);
-}
+};
 
 export default CourseDetail;

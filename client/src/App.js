@@ -8,8 +8,8 @@ import UserSignOut from './Components/UserSignOut';
 import CreateCourse from './Components/CreateCourse';
 import UpdateCourse from './Components/UpdateCourse';
 import PrivateRoute from './PrivateRoute';
-import NotFound from './Components/NotFound';
-import Error from './Components/Error';
+import Error404 from './Components/Error404';
+import Error500 from './Components/Error500';
 import {
 	BrowserRouter as Router,
 	Route,
@@ -23,8 +23,10 @@ function App() {
 		<Router>
 			<Header />
 			<Switch>
-				<Route exact path='/' component={Courses}/>
+				<Route exact path='/'><Redirect to="/courses" /></Route>
 				<Route exact path='/courses' component={Courses} />
+				<Route path='/courses/:id' component={CourseDetail} />
+				<Route path='/error404' component={Error404}/>
 			</Switch>
 		</Router>
 	);
