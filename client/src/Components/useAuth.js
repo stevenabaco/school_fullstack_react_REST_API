@@ -58,13 +58,13 @@ function useProvideAuth() {
 
 	const signup = (firstName, lastName, email, password) => {};
 
-	// const signout = () => {};
+	const signout = () => {};
 
 	return {
 		user,
 		credentials,
 		signin,
-		// signout,
+		signout,
 		signup,
 	};
 }
