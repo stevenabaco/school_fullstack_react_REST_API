@@ -1,24 +1,19 @@
 import React, { useState, useContext, createContext } from 'react';
 import Cookies from 'js-cookie';
-
 const authContext = createContext();
 
-// Context Provider for Auth to all components
-export function AuthProvider({ children }) {
+// Context Provider for authorization
+export function ProvideAuth({ children }) {
 	const auth = useProvideAuth();
-	return (
-		<authContext.Provider value {...auth}>
-			{children}
-		</authContext.Provider>
-	);
+	return <authContext.Provider value={auth}>{children}</authContext.Provider>;
 }
 
-//Hook
+// Hook
 export const useAuth = () => {
 	return useContext(authContext);
 };
 
-// Hook Provider Handler => Creates Auth Object and Handles State
+// Provider hook that creates auth object and handles state
 
 function useProvideAuth() {
 	const [user, setUser] = useState(Cookies.getJSON('authenticatedUser'));
@@ -57,9 +52,33 @@ function useProvideAuth() {
 		});
 	};
 
-	const signup = (firstName, lastName, email, password) => {};
+	const signup = (firstName, lastName, email, password) => {
+		const body = {
+			firstName,
+			lastName,
+			emailAddress: email,
+			password,
+		};
+		const options = {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(body),
+		};
 
-	const signout = () => {};
+		return fetch('http://localhost:5000/api/users', options).then(res => {
+			if (res.status === 400) {
+				return res.json().then(errors => errors.errors);
+			} else {
+				return [];
+			}
+		});
+	};
+
+	const signout = () => {
+		Cookies.remove('authenticatedUser');
+		Cookies.remove('credentials');
+		return setUser(false);
+	};
 
 	return {
 		user,

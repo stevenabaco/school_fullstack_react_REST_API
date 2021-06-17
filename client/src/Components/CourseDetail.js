@@ -22,8 +22,8 @@ const CourseDetail = props => {
 				if (res.status === 200) {
 					// Convert response to JSON and set new state
 					res.json().then(res => {
-						setCourse(res); 
-						setUser(res.User); 
+						setCourse(res);
+						setUser(res.User);
 					});
 				} else if (res.status === 404) {
 					history.push('/error404');
@@ -34,27 +34,47 @@ const CourseDetail = props => {
 			.catch(err => history.push('./Error500.js'));
 	}, [id, history]);
 
-	const deleteHandler = () => {
+	const handleDelete = () => {
 		fetch(`http://localhost:5000/api/${id}`, {
 			method: 'DELETE',
-			headers: {'Authorization': `Basic ${auth.credentials}`}
-		})
-	}
+			headers: { 'Authorization': `Basic ${auth.credentials}` },
+		}).then(res => {
+			if (res.status === 204) {
+				history.push('/');
+			} else if (res.status === 403) {
+				history.push('/Error403');
+			} else if (res.status === 404) {
+				history.push('/Error404');
+			} else if (res.status === 401) {
+				history.push('/Error401');
+			} else {
+				history.push('/Error500');
+			}
+		});
+	};
 
 	return (
 		<main>
 			<div className='actions--bar'>
-				<div className='wrap'>
-					<Link className='button' to='update-course.html'>
-						Update Course
-					</Link>
-					<Link className='button' to='deleteCourse'>
-						Delete Course
-					</Link>
-					<Link className='button button-secondary' to='/'>
-						Return to List
-					</Link>
-				</div>
+				{auth.user && user.id === auth.user.id ? (
+					<div className='wrap'>
+						<Link to={`/courses/${course.id}/update`} className='button'>
+							Update Course
+						</Link>
+						<Link to='#' onClick={handleDelete} className='button'>
+							Delete Course
+						</Link>
+						<Link to='/' className='button button-secondary'>
+							Return to List
+						</Link>
+					</div>
+				) : (
+					<div className='wrap'>
+						<Link to='/' className='button button-secondary'>
+							Return to List
+						</Link>
+					</div>
+				)}
 			</div>
 
 			<div className='wrap'>
@@ -63,8 +83,8 @@ const CourseDetail = props => {
 					<div className='main--flex'>
 						<div>
 							<h3 className='course--detail--title'>Course</h3>
-							<h4 className='course--name'>Build a Basic Bookcase</h4>
-							<p>By Joe Smith</p>
+							<h4 className='course--name'>{course.title}</h4>
+							<p>{`by ${user.firstName} ${user.lastName}`}</p>
 
 							<p>
 								High-end furniture projects are great to dream about. But unless
