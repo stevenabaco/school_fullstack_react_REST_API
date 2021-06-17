@@ -1,7 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from './useAuth';
 
 function Header() {
+	//Consumer of auth context to keep state
+	const auth = useAuth()
+
 	return (
 		<header>
 			<div className='wrap header--flex'>
@@ -9,14 +13,26 @@ function Header() {
 					<Link to='/'>Courses</Link>
 				</h1>
 				<nav>
-					<ul className='header--signedout'>
+					{
+						auth.user ? (
+							<>
+								<ul className="header--signedout">
+									<span>Welcome  {`${auth.user.firstName} ${auth.user.lastName} `}</span>
+									<Link to="/signout">Sign Out</Link>
+								</ul>
+							</>
+						) : (
+							<ul className='header--signedout'>
 						<li>
 							<Link to='/signup'>Sign Up</Link>
 						</li>
 						<li>
 							<Link to='/signin'>Sign In</Link>
 						</li>
-					</ul>
+					</ul>	
+						)
+					}
+					
 				</nav>
 			</div>
 		</header>

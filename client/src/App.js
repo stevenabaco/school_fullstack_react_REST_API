@@ -33,6 +33,8 @@ function App() {
 				<Route path='/error403' component={Error403} />
 				<Route path='/error500' component={Error500} />
 				<Route path='/signin' component={UserSignIn} />
+				<Route path='/signup' component={UserSignUp} />
+				<Route path='/signout' component={UserSignOut} />
 				</Switch>
 		</Router>
 		</ProvideAuth>
