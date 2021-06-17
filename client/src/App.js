@@ -33,6 +33,9 @@ function App() {
 					<PrivateRoute path='/courses/create'>
 						<CreateCourse />
 					</PrivateRoute>
+					<PrivateRoute path='/courses/:id/update'>
+						<UpdateCourse />
+					</PrivateRoute>
 					<Route path='/courses/:id' component={CourseDetail} />
 					<Route path='/error404' component={Error404} />
 					<Route path='/error403' component={Error403} />
