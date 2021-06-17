@@ -15,7 +15,7 @@ import UserSignUp from './Components/UserSignUp';
 import UserSignOut from './Components/UserSignOut';
 import CreateCourse from './Components/CreateCourse';
 import UpdateCourse from './Components/UpdateCourse';
-import PrivateRoute from './PrivateRoute';
+import PrivateRoute from './Components/PrivateRoute';
 import Error403 from './Components/Error403';
 import Error404 from './Components/Error404';
 import Error500 from './Components/Error500';
@@ -40,6 +40,9 @@ function App() {
 					<Route path='/signin' component={UserSignIn} />
 					<Route path='/signup' component={UserSignUp} />
 					<Route path='/signout' component={UserSignOut} />
+					<Route>
+						<Error404/>
+					</Route>
 				</Switch>
 			</Router>
 		</ProvideAuth>
