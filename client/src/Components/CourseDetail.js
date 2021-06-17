@@ -35,7 +35,7 @@ const CourseDetail = props => {
 	}, [id, history]);
 
 	const handleDelete = () => {
-		fetch(`http://localhost:5000/api/${id}`, {
+		fetch(`http://localhost:5000/api/courses/${id}`, {
 			method: 'DELETE',
 			headers: { 'Authorization': `Basic ${auth.credentials}` },
 		}).then(res => {
