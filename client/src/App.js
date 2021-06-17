@@ -24,19 +24,24 @@ function App() {
 	return (
 		<ProvideAuth>
 			<Router>
-			<Header />
-			<Switch>
-				<Route exact path='/'><Redirect to="/courses" /></Route>
-				<Route exact path='/courses' component={Courses} />
-				<Route path='/courses/:id' component={CourseDetail} />
-				<Route path='/error404' component={Error404} />
-				<Route path='/error403' component={Error403} />
-				<Route path='/error500' component={Error500} />
-				<Route path='/signin' component={UserSignIn} />
-				<Route path='/signup' component={UserSignUp} />
-				<Route path='/signout' component={UserSignOut} />
+				<Header />
+				<Switch>
+					<Route exact path='/'>
+						<Redirect to='/courses' />
+					</Route>
+					<Route exact path='/courses' component={Courses} />
+					<PrivateRoute path='/courses/create'>
+						<CreateCourse />
+					</PrivateRoute>
+					<Route path='/courses/:id' component={CourseDetail} />
+					<Route path='/error404' component={Error404} />
+					<Route path='/error403' component={Error403} />
+					<Route path='/error500' component={Error500} />
+					<Route path='/signin' component={UserSignIn} />
+					<Route path='/signup' component={UserSignUp} />
+					<Route path='/signout' component={UserSignOut} />
 				</Switch>
-		</Router>
+			</Router>
 		</ProvideAuth>
 	);
 }
