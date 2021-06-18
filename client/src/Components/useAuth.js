@@ -42,6 +42,7 @@ function useProvideAuth() {
 					Cookies.set('credentials', JSON.stringify(encodedCredentials), {
 						expires: 1,
 					});
+					console.log(user)
 					return null;
 				});
 			} else if (res.status === 401) {

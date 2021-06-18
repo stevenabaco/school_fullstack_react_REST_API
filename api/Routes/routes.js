@@ -1,12 +1,11 @@
 'use strict';
-
 // Load Modules
 const express = require('express');
 
 // Import dependencies
-const { asyncHandler } = require('./middleware/async-handler');
-const { User, Course } = require('./models');
-const { authenticateUser } = require('./middleware/auth-user');
+const { asyncHandler } = require('../middleware/async-handler');
+const { User, Course } = require('../models');
+const { authenticateUser } = require('../middleware/auth-user');
 const { ValidationErrorItem } = require('sequelize');
 const e = require('express');
 
@@ -24,7 +23,7 @@ router.get(
 			id: user.id,
 			firstName: user.firstName,
 			lastName: user.lastName, // Concatenate first and last name
-			username: user.emailAddress,
+			emailAddress: user.emailAddress,
 		});
 	})
 );
@@ -64,15 +63,22 @@ router.get(
 				'description',
 				'estimatedTime',
 				'materialsNeeded',
+				'userId',
 			],
 			include: [
 				{
 					model: User,
-					attributes: ['id','firstName', 'lastName', 'emailAddress'],
+					attributes: ['id', 'firstName', 'lastName', 'emailAddress'],
 				},
 			],
 		});
-		res.json(course);
+		if (course === null) {
+			const error = new Error('Could not find course');
+			error.status = 404;
+			throw error;
+		} else {
+			res.json(course);
+		}
 	})
 );
 
@@ -107,8 +113,25 @@ router.post(
 		try {
 			const user = req.currentUser;
 			// Create new course assigned to Authorized User
-			const newCourse = await Course.create({ ...req.body, userId: user.id });
-			res.status(201).location(`/api/courses/${newCourse.id}`).end();
+			const [newCourse, created] = await Course.findOrcreate({
+				where: { title: req.body.title },
+				defaults: { ...req.body, userId: user.id },
+			});
+			if (created) {
+				res
+					.status(201)
+					.json({
+						success: true,
+					})
+					.location(`/api/courses/${newCourse.id}`)
+					.end();
+			} else {
+				const error = new Error(
+					"That title already exists. Please choose a different title."
+				);
+				const errors = [error.message];
+				res.status(400).json({errors})
+			}
 		} catch (error) {
 			// Catch and handle 400 errors
 			if (
@@ -135,16 +158,16 @@ router.put(
 			const user = req.currentUser;
 			const course = await Course.findByPk(req.params.id);
 
-			if (course.userId === user.id) {
-				await course.update(req.body);
-				res.status(204).end();
-			} else if (course === null) {
-				const error = new Error('Could not find course to update');
-				error.status = 404;
-				throw error;
-			} else {
-				res.status(403).end();
-			}
+				if (course.userId === user.id) {
+					await course.update(req.body);
+					res.status(204).end();
+				} else if (course === null) {
+					const error = new Error('Could not find course to update');
+					error.status = 404;
+					throw error;
+				} else {
+					res.status(403).end();
+				}
 		} catch (error) {
 			if (
 				error.name === 'SequelizeValidationError' ||

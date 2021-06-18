@@ -1,5 +1,4 @@
 'use strict';
-
 // Load modules
 const express = require('express');
 const morgan = require('morgan');
@@ -20,8 +19,10 @@ const app = express();
   try {
     await sequelize.authenticate();
     console.log('Connection has been established with database successfully!');
-  } catch (error) {
-    console.log('Unable to connect to the database: ', error);
+    await sequelize.sync();
+    console.log('DB SYNCED')
+  } catch (err) {
+    console.log('Unable to connect to the database: ', err);
   }
 })();
 
@@ -41,7 +42,7 @@ app.get('/', (req, res) => {
   });
 });
 
-// Add routes to use
+// Add routes to api endpoint
 app.use('/api', routes);
 
 // send 404 if no other route matched
@@ -59,7 +60,7 @@ app.use((err, req, res, next) => {
 
   res.status(err.status || 500).json({
     message: err.message,
-    error: {},
+    error: err.status,
   });
 });
 

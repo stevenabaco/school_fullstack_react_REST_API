@@ -9,6 +9,7 @@ export default function PrivateRoute({ children, ...rest }) {
 			{...rest}
 			render={({ location }) => {
 				if (auth.user) {
+					console.log(auth.user)
 					return children;
 				} else {
 					return (

@@ -29,7 +29,7 @@ a {
     padding: 0 1rem;
 }
 header {
-    background: #57496e;
+    background: black;
     color: #fff;
     padding: 1rem 0;
     margin-bottom: 2rem;
@@ -40,7 +40,7 @@ header {
     align-items: center;
 }
 .header--logo a {
-    font-size: 1.25rem;
+    font-size: 1.8rem;
     color: #fff;
 }
 header li {
@@ -48,6 +48,7 @@ header li {
 }
 header nav a {
     color: #dbd;
+    font-size: 1.2rem;
 }
 header nav a:hover {
     color: #fff;
@@ -62,11 +63,19 @@ header nav a:hover {
     margin-left: .5rem;
 }
 .course--module {
-    background: #7c689b;
+    background: #353d4d;
     border-radius: .5rem;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
+    border: 2px solid rgb(255, 255, 255);
     display: block;
+    transition: all .5s ease;
+}
+
+.course--module:hover{
+    border: 2px solid rgb(0, 0, 0);
+    box-shadow: 0 3rem 6rem 0 rgba(0, 0, 0, 0.3);
+    
 }
 .course--label {
     color: #fff;
@@ -167,7 +176,7 @@ textarea {
     min-height: 300px;
 }
 .button {
-    background: #7c689b;
+    background: #6524c5;
     color: #fff;
     font-size: 1rem;
     padding: .75rem 1.5rem;
@@ -178,24 +187,24 @@ textarea {
     text-align: center;
     border-radius: .5rem;
     font-weight: bold;
-    transition: background 0.2s;
+    transition: background 0.3s;
 }
 .button:last-child {
     margin-bottom: 0;
 }
 .button:not(.button-secondary):hover {
-    background: #63537d;
+    background: #7b2ff5;
     cursor: pointer;
 }
 .button-secondary {
     color: #7c689b;
     background: none;
-    box-shadow: 0 0 0 2px #7c689b inset;
+    box-shadow: 0 0 0 2px #6524c5 inset;
     transition: box-shadow 0.2s, color 0.2s;
 }
 .button-secondary:hover {
     color: #63537d;
-    box-shadow: 0 0 0 2px #63537d inset;
+    box-shadow: 0 0 0 2px #6524c5 inset;
     cursor: pointer;
 }
 input:focus, button:focus, .button:focus, textarea:focus {
@@ -204,6 +213,14 @@ input:focus, button:focus, .button:focus, textarea:focus {
     outline: 2px solid #332a40;
 }
 
+.shadow {
+    box-shadow: 0 3rem 6rem 0 rgba(0, 0, 0, 0.3);
+    padding: 3rem;
+}
+
+.indent {
+    padding-left: 3rem;
+}
 @media screen and (min-width: 600px) {
     .header--signedin li {
         display: inline-block;

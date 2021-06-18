@@ -25,9 +25,6 @@ export default function UpdateCourse() {
             setDescription(res.description);
             setEstimatedTime(res.estimatedTime);
             setMaterialsNeeded(res.materialsNeeded);
-            if (auth.user.id !== res.userid) {
-              history.push('/error403')
-            }
         })
         } else if (res.status === 404) {
           history.push('/error404');

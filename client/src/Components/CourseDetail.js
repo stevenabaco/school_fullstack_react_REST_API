@@ -34,6 +34,8 @@ const CourseDetail = props => {
 			.catch(err => history.push('./Error500.js'));
 	}, [id, history]);
 
+				console.log(user);
+
 	const handleDelete = () => {
 		fetch(`http://localhost:5000/api/courses/${id}`, {
 			method: 'DELETE',
@@ -55,7 +57,7 @@ const CourseDetail = props => {
 
 	return (
 		<main>
-			<div className='actions--bar'>
+			<div className='actions--bar indent'>
 				{auth.user && user.id === auth.user.id ? (
 					<div className='wrap'>
 						<Link to={`/courses/${course.id}/update`} className='button'>
@@ -78,16 +80,16 @@ const CourseDetail = props => {
 			</div>
 
 			<div className='wrap'>
-				<h2>Course Detail</h2>
+				<h2 className="indent">Course Detail</h2>
 				<form>
 					<div className='main--flex'>
-						<div>
+						<div className='shadow'>
 							<h3 className='course--detail--title'>Course</h3>
 							<h4 className='course--name'>{course.title}</h4>
 							<p>{`by ${user.firstName} ${user.lastName}`}</p>
 							<ReactMarkdown>{course.description}</ReactMarkdown>
 						</div>
-						<div>
+						<div className='shadow'>
 							<h3 className='course--detail--title'>Estimated Time</h3>
 							<p>{course.estimatedTime}</p>
 
