@@ -17,7 +17,7 @@ function Header() {
 						auth.user ? (
 							<>
 								<ul className="header--signedout">
-									<span>Welcome  {`${auth.user.firstName} ${auth.user.lastName} `}</span>
+									<span className="span">Welcome  {`${auth.user.firstName} ${auth.user.lastName} `}</span>
 									<Link to="/signout">Sign Out</Link>
 								</ul>
 							</>

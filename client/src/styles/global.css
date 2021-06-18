@@ -42,16 +42,22 @@ header {
 .header--logo a {
     font-size: 1.8rem;
     color: #fff;
+    padding: 3rem;
 }
 header li {
     font-size: .8rem;
 }
 header nav a {
-    color: #dbd;
+    color: rgb(255, 255, 255);
     font-size: 1.2rem;
+    /* margin-left: 4rem; */
+    padding: 1rem;
+    border-bottom: 2px solid black;
+    transition: all .3s ease-out;
 }
 header nav a:hover {
-    color: #fff;
+    color: skyblue;
+    border-bottom: 2px solid skyblue;
 }
 
 .header--signedin li {
@@ -121,7 +127,7 @@ header nav a:hover {
     line-height: 1.5;
 }
 .actions--bar {
-    background: #e9e5f0;
+    /* background: #b3d4f3; */
     padding: 1rem 0;
     margin: -2rem 0 2rem;
 }
@@ -176,7 +182,7 @@ textarea {
     min-height: 300px;
 }
 .button {
-    background: #6524c5;
+    background: #1a008d;
     color: #fff;
     font-size: 1rem;
     padding: .75rem 1.5rem;
@@ -193,18 +199,19 @@ textarea {
     margin-bottom: 0;
 }
 .button:not(.button-secondary):hover {
-    background: #7b2ff5;
+    background: #1a008d;
     cursor: pointer;
+    box-shadow: 0 10px 10px rgb(104, 101, 101);
 }
 .button-secondary {
-    color: #7c689b;
+    color: #3f009e;
     background: none;
-    box-shadow: 0 0 0 2px #6524c5 inset;
+    border: 1px solid blue;
     transition: box-shadow 0.2s, color 0.2s;
 }
 .button-secondary:hover {
     color: #63537d;
-    box-shadow: 0 0 0 2px #6524c5 inset;
+    box-shadow: 0 10px 10px rgb(104, 101, 101);
     cursor: pointer;
 }
 input:focus, button:focus, .button:focus, textarea:focus {
@@ -233,6 +240,10 @@ input:focus, button:focus, .button:focus, textarea:focus {
         column-gap: 1.5rem;
         grid-auto-rows: 1fr;
     }
+}
+
+.span {
+    font-size: larger;
 }
 @media screen and (min-width: 800px) {
     .main--grid {
