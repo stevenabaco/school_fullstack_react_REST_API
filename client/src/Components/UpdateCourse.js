@@ -27,7 +27,7 @@ export default function UpdateCourse() {
             setMaterialsNeeded(res.materialsNeeded);
         })
         } else if (res.status === 404) {
-          history.push('/error404');
+          history.push('/notfound');
         } else if (res.status === 500) {
           history.push('/error500')
       }
@@ -57,7 +57,7 @@ export default function UpdateCourse() {
         if (res.status === 400) {
           res.json().then(err => setErrors(err.errors))
         } else if (res.status === 403) {
-          history.push('/error403');
+          history.push('/forbidden');
         } else if (res.status === 500) {
           history.push('/error500');
         } else if (res.status === 204) {

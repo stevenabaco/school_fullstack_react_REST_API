@@ -14,13 +14,13 @@ const Courses = () => {
 			.then(res => {
 				if (res.status === 200) {
 					return res.json().then(res => setCourses(res));
-				} else if (res.status === 500) {
-					history.push('/error500');
+				} else if (res.status === 404) {
+					history.push('/notfound');
 				}
 			})
 			.catch(err => {
 				console.log(err);
-				history.push('/error500');
+				history.push('/error');
 			});
 	}, [history]);
 

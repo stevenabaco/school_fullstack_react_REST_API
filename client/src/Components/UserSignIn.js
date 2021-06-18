@@ -22,7 +22,7 @@ function SignIn() {
 			})
 			.catch(err => {
 				console.log(err);
-				history.push('/error500');
+				history.push('/error');
 			});
 	};
 

@@ -26,12 +26,12 @@ const CourseDetail = props => {
 						setUser(res.User);
 					});
 				} else if (res.status === 404) {
-					history.push('/error404');
+					history.push('/notfound');
 				} else if (res.status === 500) {
-					history.push('./Error500');
+					history.push('/error');
 				}
 			})
-			.catch(err => history.push('./Error500.js'));
+			.catch(err => history.push('/error'));
 	}, [id, history]);
 
 				console.log(user);
@@ -44,13 +44,13 @@ const CourseDetail = props => {
 			if (res.status === 204) {
 				history.push('/');
 			} else if (res.status === 403) {
-				history.push('/Error403');
+				history.push('/forbidden');
 			} else if (res.status === 404) {
-				history.push('/Error404');
+				history.push('/notfound');
 			} else if (res.status === 401) {
-				history.push('/Error401');
+				history.push('/error401');
 			} else {
-				history.push('/Error500');
+				history.push('/error');
 			}
 		});
 	};

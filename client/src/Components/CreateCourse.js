@@ -38,14 +38,14 @@ export default function CreateCourse() {
 				} else if (res.status === 400) {
 					res.json().then(err => setErrors(err.errors));
 				} else if (res.status === 500) {
-					history.push('/error500');
+					history.push('/error');
 				} else {
 					throw new Error();
 				}
 			})
 			.catch(err => {
 				console.log(err);
-				history.push('/error500');
+				history.push('/error');
 			});
 	};
 	return (

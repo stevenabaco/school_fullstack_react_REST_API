@@ -16,9 +16,10 @@ import UserSignOut from './Components/UserSignOut';
 import CreateCourse from './Components/CreateCourse';
 import UpdateCourse from './Components/UpdateCourse';
 import PrivateRoute from './Components/PrivateRoute';
-import Error403 from './Components/Error403';
-import Error404 from './Components/Error404';
-import Error500 from './Components/Error500';
+import Error401 from './Components/Error401';
+import UnhandledError from './Components/UnhandledError';
+import NotFound from './Components/NotFound';
+import Forbidden from './Components/Forbidden';
 
 function App() {
 	return (
@@ -37,14 +38,15 @@ function App() {
 						<UpdateCourse />
 					</PrivateRoute>
 					<Route path='/courses/:id' component={CourseDetail} />
-					<Route path='/error404' component={Error404} />
-					<Route path='/error403' component={Error403} />
-					<Route path='/error500' component={Error500} />
+					<Route path='/notfound' component={NotFound} />
+					<Route path='/error' component={UnhandledError} />
+					<Route path='/forbidden' component={Forbidden} />
+					<Route path='/error401' component={Error401} />
 					<Route path='/signin' component={UserSignIn} />
 					<Route path='/signup' component={UserSignUp} />
 					<Route path='/signout' component={UserSignOut} />
 					<Route>
-						<Error404/>
+						<NotFound/>
 					</Route>
 				</Switch>
 			</Router>

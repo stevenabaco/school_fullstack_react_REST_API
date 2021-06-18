@@ -1,3 +1,45 @@
+# <p align="center">Full Stack- SCHOOL APP - Teamtree Project 10</p> 
+
+# <p align="center"><a href="https://teamtreehouse.com/techdegree/full-stack-javascript">TREEHOUSE - FULL STACK </a> TECHDEGREE 👍 </p>
+
+## PROJECT OVERVIEW
+
+This app builds on the "School REST API" we built for project 9, by adding the Front End to the application. 
+
+The UI allows the user to  :
+
+<ul> 
+<li>Login or Create a new user account.</li>
+<li>Create new courses, with Markdown</li>
+<li>Retrieve information on existing courses</li>
+<li>Update or Delete existing courses</li>
+</ul>
+
+For security reasons, the app utilizes basic user Authorization to restrict access to information based on users being authorized prior to being able to access the information. 
+
+Restricted functionality includes accessing a course to either update or delete it from the database. Only users authorized as the creators of the course can gain access to these features.
+
+
+
+## EXTRA FEATURES & CUSTOM MODS
+
+<ul>
+  <li>Added validation to User email to ensure new email accounts are unique and properly formatted</li>
+  <li>Added filter to Users GET route to filter out password, createdAt, and updatedAt</li>
+  <li>Added validation to Users to handle SequelizeUniqueContraintsError as 400 status code </li>
+  <li>Fliter Courses route to not show createdAt and updatedAt</li>
+  <li>Add athentication to users to ensure only authenticated users can edit a courses</li>
+</ul>
+
+## TOOLS
+<ul>
+  <li>Javascript</li>
+  <li>Express</>
+  <li>Sequelize</li>
+  <li>HTML</li>
+  <li>CSS</li>
+  <li>SQLite</li>
+</ul>
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
