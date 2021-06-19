@@ -25,13 +25,16 @@ export default function UpdateCourse() {
             setDescription(res.description);
             setEstimatedTime(res.estimatedTime);
             setMaterialsNeeded(res.materialsNeeded);
+            if (auth.user.id !== res.userId) {
+              history.push('/forbidden');
+            }
         })
         } else if (res.status === 404) {
           history.push('/notfound');
         } else if (res.status === 500) {
-          history.push('/error500')
+          history.push('/error')
       }
-      }).catch(err => history.push('/error500'))
+      }).catch(err => history.push('/error'))
   }, [auth.user.id, id, history])
   
   const handleSubmit = e => {
@@ -59,7 +62,7 @@ export default function UpdateCourse() {
         } else if (res.status === 403) {
           history.push('/forbidden');
         } else if (res.status === 500) {
-          history.push('/error500');
+          history.push('/error');
         } else if (res.status === 204) {
           history.push(`/courses/${id}`);
         }

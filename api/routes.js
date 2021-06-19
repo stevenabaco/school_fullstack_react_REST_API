@@ -64,6 +64,7 @@ router.get(
 				'description',
 				'estimatedTime',
 				'materialsNeeded',
+				'userId',
 			],
 			include: [
 				{
@@ -72,7 +73,13 @@ router.get(
 				},
 			],
 		});
-		res.json(course);
+		if (course === null) {
+			const error = new Error('Resource Not found.');
+			error.status = 404;
+			throw error;
+		} else {
+			res.json(course);
+		}
 	})
 );
 
@@ -135,13 +142,13 @@ router.put(
 			const user = req.currentUser;
 			const course = await Course.findByPk(req.params.id);
 
-			if (course.userId === user.id) {
-				await course.update(req.body);
-				res.status(204).end();
-			} else if (course === null) {
+			if (course === null) {
 				const error = new Error('Could not find course to update');
 				error.status = 404;
 				throw error;
+			} else if (course.userId === user.id) {
+				await course.update(req.body);
+				res.status(204).end();
 			} else {
 				res.status(403).end();
 			}
