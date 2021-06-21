@@ -26,7 +26,7 @@ const CourseDetail = props => {
 						setUser(res.User);
 					});
 				} else if (res.status === 404) {
-					history.push('/NotFound');
+					history.push('/notfound');
 				} else if (res.status === 500) {
 					history.push('/error');
 				}
