@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from './useAuth';
 
+// Function to Create a new course ** Needs Auth **
 export default function CreateCourse() {
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
@@ -11,12 +12,14 @@ export default function CreateCourse() {
 	let history = useHistory();
 	let auth = useAuth();
 
+	// Helper function to handle the cancel button... redirect to '/'
 	const handleCancel = () => {
 		history.push('/');
 	};
 
+	// Helper function to handle the form submit
 	const handleSubmit = e => {
-		e.preventDefault();
+		e.preventDefault(); // Prevents the default action of form
 		const body = {
 			title,
 			description,

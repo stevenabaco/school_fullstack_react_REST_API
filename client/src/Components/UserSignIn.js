@@ -11,11 +11,12 @@ function SignIn() {
 	const [userEmail, setUserEmail] = useState('');
 	const [password, setPassword] = useState('');
 
+	// Function to handle the form submital
 	const handleSubmit = e => {
-		e.preventDefault();
-		auth
+		e.preventDefault(); // Prevent default form action
+		auth // Authorize user
 			.signin(userEmail, password, () => history.replace(from))
-			.then(errors => {
+			.then(errors => { // Handle any errors
 				if (errors !== null) {
 					setErrors([errors]); // assign array of errors to state
 				}
@@ -25,7 +26,7 @@ function SignIn() {
 				history.push('/error');
 			});
 	};
-
+	// Helper function to handle the cancel button
 	const handleCancel = e => {
 		history.push('/');
 	};

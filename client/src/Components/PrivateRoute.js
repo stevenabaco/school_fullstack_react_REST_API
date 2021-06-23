@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { useAuth } from './useAuth';
 
+//Function used to handle private routes
 export default function PrivateRoute({ children, ...rest }) {
 	let auth = useAuth();
 	return (

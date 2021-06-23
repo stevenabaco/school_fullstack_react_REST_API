@@ -17,14 +17,15 @@ const router = express.Router();
 router.get(
 	'/users',
 	authenticateUser,
-	asyncHandler(async (req, res) => {
+	asyncHandler(async (req, res, next) => {
+		// return res.status(500).json({}); // Used for developement testing only
 		const user = req.currentUser;
 		res.json({
 			// Display just name and email of user. Filter out other columns.
 			id: user.id,
 			firstName: user.firstName,
-			lastName: user.lastName, // Concatenate first and last name
-			username: user.emailAddress,
+			lastName: user.lastName,
+			emailAddress: user.emailAddress,
 		});
 	})
 );
@@ -33,6 +34,7 @@ router.get(
 router.get(
 	'/courses',
 	asyncHandler(async (req, res) => {
+		// return res.status(500).json({}); // Used just for testing errors
 		const courses = await Course.findAll({
 			attributes: [
 				'id',
@@ -69,7 +71,7 @@ router.get(
 			include: [
 				{
 					model: User,
-					attributes: ['id','firstName', 'lastName', 'emailAddress'],
+					attributes: ['id', 'firstName', 'lastName', 'emailAddress'],
 				},
 			],
 		});
@@ -89,6 +91,7 @@ router.get(
 router.post(
 	'/users',
 	asyncHandler(async (req, res) => {
+		
 		try {
 			await User.create(req.body);
 			res.status(201).location('/').end();

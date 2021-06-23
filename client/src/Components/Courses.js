@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 
+// Function to get a list of all the courses from the database
 const Courses = () => {
 	// Set state for list of Courses
 	const [courses, setCourses] = useState([]);
@@ -11,11 +12,11 @@ const Courses = () => {
 	// Pull courses from API and set state with Courses
 	useEffect(() => {
 		fetch('http://localhost:5000/api/courses')
-			.then(res => {
+			.then(res => { // Handle errors
 				if (res.status === 200) {
 					return res.json().then(res => setCourses(res));
-				} else if (res.status === 404) {
-					history.push('/notfound');
+				} else if (res.status === 500) {
+					history.push('/error');
 				}
 			})
 			.catch(err => {

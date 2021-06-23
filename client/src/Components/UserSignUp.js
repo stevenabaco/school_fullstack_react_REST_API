@@ -23,7 +23,8 @@ export default function SignUp() {
 			if (password !== confirmed) {
 				setErrors(["Passwords don't match"]);
 			} else {
-				auth.signup(firstName, lastName, email, password).then(errors => {
+				auth.signup(firstName, lastName, email, password)
+					.then(errors => {
 					if (errors.length !== 0) {
 						setErrors(errors);
 					} else {

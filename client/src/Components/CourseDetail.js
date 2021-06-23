@@ -4,6 +4,7 @@ import { Link, useHistory, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { useAuth } from './useAuth';
 
+//Function to get course details for selected course
 const CourseDetail = props => {
 	// Set State using object
 	const [course, setCourse] = useState({});
@@ -36,11 +37,13 @@ const CourseDetail = props => {
 
 				console.log(user);
 
+	// Function to handle deleting a course
 	const handleDelete = () => {
+		// Fetch the course with matching id and delete it
 		fetch(`http://localhost:5000/api/courses/${id}`, {
 			method: 'DELETE',
 			headers: { 'Authorization': `Basic ${auth.credentials}` },
-		}).then(res => {
+		}).then(res => { //error handling
 			if (res.status === 204) {
 				history.push('/');
 			} else if (res.status === 403) {
