@@ -11,8 +11,9 @@ const Courses = () => {
 
 	// Pull courses from API and set state with Courses
 	useEffect(() => {
-		fetch('http://localhost:5000/api/courses')
-			.then(res => { // Handle errors
+		fetch('https://reactschool.stevenabaco.dev/api/courses')
+			.then(res => {
+				// Handle errors
 				if (res.status === 200) {
 					return res.json().then(res => setCourses(res));
 				} else if (res.status === 500) {

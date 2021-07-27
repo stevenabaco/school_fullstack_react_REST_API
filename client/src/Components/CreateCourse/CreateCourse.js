@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useAuth } from './useAuth';
+import { useAuth } from '../Auth/useAuth';
 
 // Function to Create a new course ** Needs Auth **
 export default function CreateCourse() {
@@ -34,10 +34,10 @@ export default function CreateCourse() {
 			},
 			body: JSON.stringify(body),
 		};
-		fetch(`http://localhost:5000/api/courses`, options)
+		fetch(`https://reactschool.stevenabaco.dev/api/courses/`, options)
 			.then(res => {
 				if (res.status === 201) {
-					history.push('/')
+					history.push('/');
 				} else if (res.status === 400) {
 					res.json().then(err => setErrors(err.errors));
 				} else if (res.status === 500) {

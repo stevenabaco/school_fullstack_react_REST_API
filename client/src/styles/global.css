@@ -2,9 +2,7 @@
 * {
     box-sizing: border-box;
 }
-html {
-    font-size: 1.25em;
-}
+
 body {
     font-family: 'Work Sans', sans-serif;
 }
@@ -28,46 +26,8 @@ a {
     margin: 0 auto;
     padding: 0 1rem;
 }
-header {
-    background: black;
-    color: #fff;
-    padding: 1rem 0;
-    margin-bottom: 2rem;
-}
-.header--flex {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.header--logo a {
-    font-size: 1.8rem;
-    color: #fff;
-    padding: 3rem;
-}
-header li {
-    font-size: .8rem;
-}
-header nav a {
-    color: rgb(255, 255, 255);
-    font-size: 1.2rem;
-    /* margin-left: 4rem; */
-    padding: 1rem;
-    border-bottom: 2px solid black;
-    transition: all .3s ease-out;
-}
-header nav a:hover {
-    color: skyblue;
-    border-bottom: 2px solid skyblue;
-}
 
-.header--signedin li {
-    text-align: right;
-    line-height: 1.25;
-}
-.header--signedout li {
-    display: inline-block;
-    margin-left: .5rem;
-}
+
 .course--module {
     background: #353d4d;
     border-radius: .5rem;

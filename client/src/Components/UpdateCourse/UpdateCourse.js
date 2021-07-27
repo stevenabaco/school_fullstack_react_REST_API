@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { useAuth } from './useAuth';
+import { useAuth } from '../Auth/useAuth';
 
 // Function used to update a course by an authorized user
 export default function UpdateCourse() {
@@ -19,7 +19,7 @@ export default function UpdateCourse() {
 	};
 
 	useEffect(() => {
-		fetch(`http://localhost:5000/api/courses/${id}`)
+		fetch(`https://reactschool.stevenabaco.dev/api/courses/${id}`)
 			.then(res => {
 				if (res.status === 200) {
 					res.json().then(res => {
@@ -59,8 +59,12 @@ export default function UpdateCourse() {
 			},
 		};
 
-		fetch(`http://localhost:5000/api/courses/${id}`, options).then(res => {
-			if (res.status === 400) { // Handles any errors
+		fetch(
+			`https://reactschool.stevenabaco.dev/api/courses/${id}`,
+			options
+		).then(res => {
+			if (res.status === 400) {
+				// Handles any errors
 				res.json().then(err => setErrors(err.errors));
 			} else if (res.status === 403) {
 				history.push('/forbidden');

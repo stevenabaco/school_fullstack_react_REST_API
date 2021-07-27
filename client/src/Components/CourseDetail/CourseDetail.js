@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
-import { useAuth } from './useAuth';
+import { useAuth } from '../Auth/useAuth';
 
 //Function to get course details for selected course
 const CourseDetail = props => {
@@ -17,7 +17,7 @@ const CourseDetail = props => {
 
 	// Fetch Course Detail by 'id' using params
 	useEffect(() => {
-		fetch(`http://localhost:5000/api/courses/${id}`)
+		fetch(`https://reactschool.stevenabaco.dev/api/courses/${id}`)
 			.then(res => {
 				//Check status for any error
 				if (res.status === 200) {
@@ -40,10 +40,11 @@ const CourseDetail = props => {
 	// Function to handle deleting a course
 	const handleDelete = () => {
 		// Fetch the course with matching id and delete it
-		fetch(`http://localhost:5000/api/courses/${id}`, {
+		fetch(`https://reactschool.stevenabaco.dev/api/courses/${id}`, {
 			method: 'DELETE',
-			headers: { 'Authorization': `Basic ${auth.credentials}` },
-		}).then(res => { //error handling
+			headers: { Authorization: `Basic ${auth.credentials}` },
+		}).then(res => {
+			//error handling
 			if (res.status === 204) {
 				history.push('/');
 			} else if (res.status === 403) {

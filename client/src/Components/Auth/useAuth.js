@@ -30,27 +30,29 @@ function useProvideAuth() {
 			},
 		};
 
-		return fetch(`http://localhost:5000/api/users`, options).then(res => {
-			if (res.status === 200) {
-				res.json().then(data => {
-					setUser(data);
-					setCredentials(encodedCredentials);
-					cb();
-					Cookies.set('authenticatedUser', JSON.stringify(data), {
-						expires: 1,
+		return fetch(`https://reactschool.stevenabaco.dev/api/users`, options).then(
+			res => {
+				if (res.status === 200) {
+					res.json().then(data => {
+						setUser(data);
+						setCredentials(encodedCredentials);
+						cb();
+						Cookies.set('authenticatedUser', JSON.stringify(data), {
+							expires: 1,
+						});
+						Cookies.set('credentials', JSON.stringify(encodedCredentials), {
+							expires: 1,
+						});
+						console.log(user);
+						return null;
 					});
-					Cookies.set('credentials', JSON.stringify(encodedCredentials), {
-						expires: 1,
-					});
-					console.log(user)
-					return null;
-				});
-			} else if (res.status === 401) {
-				return res.json().then(error => error.message);
-			} else {
-				throw new Error();
+				} else if (res.status === 401) {
+					return res.json().then(error => error.message);
+				} else {
+					throw new Error();
+				}
 			}
-		});
+		);
 	};
 
 	const signup = (firstName, lastName, email, password) => {
@@ -66,13 +68,15 @@ function useProvideAuth() {
 			body: JSON.stringify(body),
 		};
 
-		return fetch('http://localhost:5000/api/users', options).then(res => {
-			if (res.status === 400) {
-				return res.json().then(errors => errors.errors);
-			} else {
-				return [];
+		return fetch('https://reactschool.stevenabaco.dev/api/users', options).then(
+			res => {
+				if (res.status === 400) {
+					return res.json().then(errors => errors.errors);
+				} else {
+					return [];
+				}
 			}
-		});
+		);
 	};
 
 	const signout = () => {

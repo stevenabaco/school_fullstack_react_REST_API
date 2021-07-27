@@ -1,5 +1,3 @@
-'use strict';
-
 // Load Modules
 const express = require('express');
 

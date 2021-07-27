@@ -1,0 +1,43 @@
+.header--flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header {
+    background: black;
+    color: #fff;
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+}
+.header--logo a {
+    font-size: 1.2rem;
+    color: #fff;
+    padding: 3rem;
+}
+/* header li {
+    font-size: 1rem;
+} */
+
+header nav a {
+    color: rgb(255, 255, 255);
+    font-size: 1rem;
+    /* margin-left: 4rem; */
+    padding: 1rem;
+    border-bottom: 2px solid black;
+    transition: all .3s ease-out;
+}
+header nav a:hover {
+    color: skyblue;
+    border-bottom: 2px solid skyblue;
+}
+
+.header--signedin li {
+    font-size: 1rem;
+    text-align: right;
+    line-height: 1.25;
+}
+.header--signedout li {
+    font-size: .75rem;
+    display: inline-block;
+    margin-left: .5rem;
+}

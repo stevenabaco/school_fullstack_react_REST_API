@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from './useAuth';
+import { useAuth } from '../Auth/useAuth';
+import './Header.css';
 
 function Header() {
 	//Consumer of auth context to keep state
@@ -17,7 +18,7 @@ function Header() {
 						auth.user ? (
 							<>
 								<ul className="header--signedout">
-									<span className="span">Welcome  {`${auth.user.firstName} ${auth.user.lastName} `}</span>
+									<span className="span">{`${auth.user.firstName} ${auth.user.lastName} `}</span>
 									<Link to="/signout">Sign Out</Link>
 								</ul>
 							</>
