@@ -1,0 +1,139 @@
+.navbar {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #485563; /* fallback for old browsers */
+	background: -webkit-linear-gradient(
+		to top,
+		#29323c,
+		#485563
+	); /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(
+		to top,
+		#29323c,
+		#485563
+	); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    height: 3.5rem;
+    font-size: 1.2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    margin-bottom: 1.5rem;
+}
+
+    a.navbar_logo {
+        margin-left: 1rem;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+
+}
+
+.nav_menu {
+	display: flex;
+	flex-direction: column;
+	min-width: 75%;
+	height: 100vh;
+	position: absolute;
+	top: 3.5rem;
+	left: -100%;
+	opacity: 1;
+	align-items: center;
+	list-style: none;
+	padding-top: 20vh;
+	padding-bottom: 40vh;
+	transition: all 0.8s ease;
+
+}
+
+ul.nav_menu a {
+    color: white;
+    margin: 3rem;
+}
+.nav_menu .userName {
+    font-size: 1.3rem;
+    color: white;
+    margin: 3rem;
+}
+
+.nav_links {
+	color: lightcyan;
+	text-decoration: none;
+	justify-items: center;
+	padding: 1rem 0.5rem;
+	border-bottom: 2px solid #242222;
+	transition: all 0.3s ease-out;
+	text-align: center;
+	padding: 1rem;
+	width: 100%;
+	transition: all 0.2s ease-in-out;
+	font-size: 1rem;
+}
+.menu_icon {
+    color: white;
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	transform: translate(-50%, 40%);
+	font-size: 2rem;
+	cursor: pointer;
+}
+
+.nav_menu.active {
+    display: flex;
+	background:  #242222;
+	left: 0;
+	opacity: 1;
+	transition: all 0.5s ease;
+	z-index: 10;
+}
+
+.nav_menu.active .signOut-Link {
+    cursor: pointer;
+}
+
+.nav_item {
+	display: flex;
+	align-items: center;
+    height: 80px;
+
+}
+
+
+.nav_links:hover,
+.nav_links.active,
+.nav_links:active,
+.signOut-Link:hover {
+	color: white;
+	border-bottom: 2px solid rgb(0, 140, 255);
+}
+
+@media only screen and (min-width: 1208px) {
+	.navbar {
+		height: 6rem;
+	}
+	.nav_menu {
+		flex-direction: row;
+		flex: 1;
+		justify-content: flex-end;
+		position: relative;
+		height: 0;
+		width: 0;
+		top: 0;
+		left: 0;
+		padding: 0;
+	}
+	.menu_icon {
+		display: none;
+	}
+	.nav_menu.active {
+		display: none;
+	}
+	.nav_links {
+		border-bottom: 2px solid rgb(43, 53, 63);
+	}
+    .backdrop {
+        display: none;
+    }
+}

@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 
 import { ProvideAuth } from './Components/Auth/useAuth';
-import Header from './Components/Header/Header';
+import Layout from './Components/Layout/Layout';
 import Courses from './Components/Courses/Courses';
 import CourseDetail from './Components/CourseDetail/CourseDetail';
 import UserSignIn from './Components/Auth/UserSignIn';
@@ -25,30 +25,31 @@ function App() {
 	return (
 		<ProvideAuth>
 			<Router>
-				<Header />
-				<Switch>
-					<Route exact path='/'>
-						<Redirect to='/courses' />
-					</Route>
-					<Route exact path='/courses' component={Courses} />
-					<PrivateRoute path='/courses/create'>
-						<CreateCourse />
-					</PrivateRoute>
-					<PrivateRoute path='/courses/:id/update'>
-						<UpdateCourse />
-					</PrivateRoute>
-					<Route path='/courses/:id' component={CourseDetail} />
-					<Route path='/notfound' component={NotFound} />
-					<Route path='/error' component={UnhandledError} />
-					<Route path='/forbidden' component={Forbidden} />
-					<Route path='/error401' component={Error401} />
-					<Route path='/signin' component={UserSignIn} />
-					<Route path='/signup' component={UserSignUp} />
-					<Route path='/signout' component={UserSignOut} />
-					<Route>
-						<NotFound/>
-					</Route>
-				</Switch>
+				<Layout>
+					<Switch>
+						<Route exact path='/'>
+							<Redirect to='/courses' />
+						</Route>
+						<Route exact path='/courses' component={Courses} />
+						<PrivateRoute path='/courses/create'>
+							<CreateCourse />
+						</PrivateRoute>
+						<PrivateRoute path='/courses/:id/update'>
+							<UpdateCourse />
+						</PrivateRoute>
+						<Route path='/courses/:id' component={CourseDetail} />
+						<Route path='/notfound' component={NotFound} />
+						<Route path='/error' component={UnhandledError} />
+						<Route path='/forbidden' component={Forbidden} />
+						<Route path='/error401' component={Error401} />
+						<Route path='/signin' component={UserSignIn} />
+						<Route path='/signup' component={UserSignUp} />
+						<Route path='/signout' component={UserSignOut} />
+						<Route>
+							<NotFound />
+						</Route>
+					</Switch>
+				</Layout>
 			</Router>
 		</ProvideAuth>
 	);

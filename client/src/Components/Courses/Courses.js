@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 
+import './Courses.css';
+
 // Function to get a list of all the courses from the database
 const Courses = () => {
 	// Set state for list of Courses
